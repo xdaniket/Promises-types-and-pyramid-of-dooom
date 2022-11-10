@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  //**
+
+  // Promise.allSettled :
+  //                     It will execute the promise no matter they are resolve or reject.
+  //                     we use Promise.allSettled like, when we have multiple promises and
+  //                     we want to show the result of each promise so that tym we use
+  //                     Promise.allSettled method,
+  //                     It will give output in array of object.
+
+  const promises1 = () => {
+    return new Promise((res, rej) => {
+      res(1);
+    });
+  };
+  const promises2 = () => {
+    return new Promise((res, rej) => {
+      rej(2);
+    });
+  };
+  const promises3 = () => {
+    return new Promise((res, rej) => {
+      res(3);
+    });
+  };
+
+  //  with Promise.allSettled
+
+  const promiseArr2 = [promises1(), promises2(), promises3()];
+  const withPromiseAllSettled = async () => {
+    const result = await Promise.allSettled(promiseArr2).catch((error) => {
+      console.log(error);
+    });
+    console.log(result);
+  };
+
+  withPromiseAllSettled();
+</script>

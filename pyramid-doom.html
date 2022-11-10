@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  //** Solve Pyramid of doom : using (.then and await),
+
+  // Q: If you have promises like ( promise-1 to promise-10 ) and you want to resolve promise-2
+  //    when promise-1 is resolved similarly promise-3 when promise-2 is resolved, like chain format
+  //    and if anyone promise is reject so, show the error and stop them.(pyramid of doom) ?
+
+  //Ans: We can solve it by using (.then or await) but the problem with .then is like it will
+  //     create messy code and if we have large data so it become impossible to debugging in them
+  //     using .then this is known as callback hell.
+
+  //     But using await it become easy to do that it help us to write the clean code and save time.
+
+  //______________________________+++++++++++++++++++++++++++______________________________
+
+  //** Create promises :
+
+  const promises1 = () => {
+    return new Promise((res, rej) => {
+      res(1);
+    });
+  };
+  const promises2 = () => {
+    return new Promise((res, rej) => {
+      res(2);
+    });
+  };
+  const promises3 = () => {
+    return new Promise((res, rej) => {
+      res(3);
+    });
+  };
+
+  // With then and catch :
+
+  promises1()
+    .then((data) => {
+      console.log(data);
+      promises2()
+        .then((data) => {
+          console.log(data);
+          promises3()
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  // With async-await :
+
+  const withAsync = async () => {
+    const responseP1 = await promises1().catch((error) => null);
+    console.log(responseP1);
+    if (!responseP1) {
+      console.log("P1 failed");
+      return;
+    }
+
+    const responseP2 = await promises2().catch((error) => null);
+    console.log(responseP2);
+    if (!responseP2) {
+      console.log("P2 failed");
+      return;
+    }
+
+    const responseP3 = await promises3().catch((error) => null);
+    console.log(responseP3);
+    if (!responseP3) {
+      console.log("P3 failed");
+      return;
+    }
+  };
+
+  withAsync();
+</script>

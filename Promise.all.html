@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  //**
+
+  // Promise.all :
+  //              Promise.all like, when we have multiple promises with fullfill(resolve) status
+  //              so it will give output in array with their resolve value.
+  //              and if any one promise have a reject status so it will give only the reject
+  //              value of that promise nd stop executing.
+
+  const promises1 = () => {
+    return new Promise((res, rej) => {
+      res(1);
+    });
+  };
+  const promises2 = () => {
+    return new Promise((res, rej) => {
+      rej(2);
+    });
+  };
+  const promises3 = () => {
+    return new Promise((res, rej) => {
+      res(3);
+    });
+  };
+
+  //  with Promise.all
+
+  const promiseArr = [promises1(), promises2(), promises3()];
+  const withPromiseAll = async () => {
+    const result = await Promise.all(promiseArr).catch((error) => {
+      console.log(error);
+    });
+    console.log(result);
+  };
+
+  withPromiseAll();
+</script>
